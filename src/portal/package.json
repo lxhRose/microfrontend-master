@@ -1,0 +1,14 @@
+{
+  "name": "portal",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.dev.js",
+    "build": "webpack --config ./webpack.config.js -p --progress"
+  },
+  "author": "lvxinghai",
+  "license": "MIT",
+  "dependencies": {
+    "regenerator-runtime": "^0.13.3"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "prefer-for-of": false,
+    "no-empty": {
+      "severity": "warning"
+    },
+    "no-var-requires": false,
+    "no-unused-imports": [
+      true
+    ],
+    "arrow-parens": false,
+    "max-classes-per-file": false,
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "no-reference": false,
+    "no-empty-interface": false,
+    "no-object-literal-type-assertion": false,
+    "ordered-imports": [
+      false
+    ],
+    "trailing-comma": false,
+    "semicolon": false,
+    "quotemark": false,
+    "no-console": false,
+    "ban-types": false,
+    "no-this-assignment": [
+      true,
+      {
+        "allowed-names": [
+          "^self$"
+        ],
+        "allow-destructuring": true
+      }
+    ],
+    "no-trailing-whitespace": false,
+    "no-angle-bracket-type-assertion": false,
+    "prefer-const": false,
+    "no-var-keyword": false,
+    "triple-equals": false
+  }
+}
