@@ -17,12 +17,6 @@ config.devServer = {
   historyApiFallback: true,
   headers: {
     'Access-Control-Allow-Origin': '*'
-  },
-  proxy: {
-    "/": {
-      target: "http://192.168.41.216:7000",
-      changeOrigin: true
-    },
   }
 }
 
