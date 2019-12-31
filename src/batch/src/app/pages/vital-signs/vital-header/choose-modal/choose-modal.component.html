@@ -1,0 +1,77 @@
+<div class="choose-modal">
+  <button class="button-gradient" nz-button nzType="primary" (click)="showModal()">
+    <i nz-icon nzType="user"></i>选择患者
+  </button>
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="选择患者" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    class="choose-modal-modal system-modal" nzWidth="800px" [nzStyle]="{top: 'calc((100vh - 588px)/2)'}" nzMask="false">
+    <div class="modal-top">
+      <label class="serchBox">
+        检索
+        <input nz-input placeholder="请输入关键字" [(ngModel)]="serchValue" (ngModelChange)="search()" />
+      </label>
+      <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="getData()">
+        <label nz-radio [nzValue]="1">本人</label>
+        <label nz-radio [nzValue]="2">本组</label>
+        <label nz-radio [nzValue]="0">本病区</label>
+      </nz-radio-group>
+    </div>
+    <div class="modal-table-box">
+      <nz-spin nzSimple class="table-loding" *ngIf="tableLoding"></nz-spin>
+      <div class="left-table-wrap">
+        <nz-table #rowSelectionTable [nzShowPagination]="false" [nzData]="leftData" [nzScroll]="{ y: '385px' }"
+          nzSize="small" id="vital-left-table" (mouseover)="tableMouseOver('left')" (mouseout)="tableMouseOut('left')">
+          <thead>
+            <tr class="vital-table-tr table-zebra-row">
+              <th nzShowCheckbox [nzIndeterminate]="leftIsIndeterminate" (nzCheckedChange)="leftCheckAll($event)"
+                [(nzChecked)]="lCheckAll" nzWidth="10%" nzAlign="center"></th>
+              <th nzWidth="16%" nzAlign="center">床号</th>
+              <th nzWidth="27%" nzAlign="center">姓名</th>
+              <th nzWidth="27%" nzAlign="center">病历号</th>
+              <th nzWidth="20%" nzAlign="center">筛选原因</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="vital-table-tr can-click-tr" *ngFor="let data of leftData; let i=index"
+              (click)="rowClick(data.visitno)" [class.table-zebra-row]="i % 2 === 1">
+              <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.visitno]"
+                (nzCheckedChange)="refreshStatus(leftData, 1)" nzAlign="center">
+              </td>
+              <td nzAlign="center">{{ data.bedno }}</td>
+              <td nzAlign="center">{{ data.ptname }}</td>
+              <td nzAlign="center">{{ data.chartno }}</td>
+              <td nzAlign="center">{{ data.reason }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <div class="right-table-wrap">
+        <nz-table #rowSelectionTable [nzShowPagination]="false" [nzData]="rightData" [nzScroll]="{ y: '385px' }"
+          nzSize="small" id="vital-right-table" (mouseover)="tableMouseOver('right')"
+          (mouseout)="tableMouseOut('right')">
+          <thead>
+            <tr class="vital-table-tr table-zebra-row">
+              <th nzShowCheckbox [nzIndeterminate]="rightIsIndeterminate" (nzCheckedChange)="rightCheckAll($event)"
+                [(nzChecked)]="rCheckAll" nzWidth="10%" nzAlign="center">
+              </th>
+              <th nzWidth="16%" nzAlign="center">床号</th>
+              <th nzWidth="27%" nzAlign="center">姓名</th>
+              <th nzWidth="27%" nzAlign="center">病历号</th>
+              <th nzWidth="20%" nzAlign="center">筛选原因</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="vital-table-tr can-click-tr" *ngFor="let data of rightData; let i=index"
+              (click)="rowClick(data.visitno)" [class.table-zebra-row]="i % 2 === 1">
+              <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.visitno]"
+                (nzCheckedChange)="refreshStatus(rightData, 2)" nzAlign="center"></td>
+              <td nzAlign="center">{{ data.bedno }}</td>
+              <td nzAlign="center">{{ data.ptname }}</td>
+              <td nzAlign="center">{{ data.chartno }}</td>
+              <td nzAlign="center">{{ data.reason }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </nz-modal>
+</div>

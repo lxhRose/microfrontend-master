@@ -1,29 +1,30 @@
 const path = require('path');
 const webpack = require('webpack');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+// const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const systemjsBasePath = '../../node_modules/';
+const package = require("./../../package.json");
+const VERSION = package.version;
+const node_modules = '../../node_modules/';
+// "use-default.min": node_modules + 'systemjs/dist/extras/use-default.min.js',
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
-  entry: {
-    system: systemjsBasePath + 'systemjs/dist/system.min.js',
-    amd: systemjsBasePath + 'systemjs/dist/extras/amd.min.js',
-    named_exports: systemjsBasePath + 'systemjs/dist/extras/named-exports.min.js',
-    use_default: systemjsBasePath + 'systemjs/dist/extras/use-default.min.js',
-    minified: systemjsBasePath + 'core-js-bundle/minified.js',
-    zone: systemjsBasePath + 'zone.js/dist/zone.min.js',
-    portal: './src/portal.js'
-  },
+  devtool: 'none',
+  entry: () => new Promise((resolve) => resolve([
+    `${node_modules}systemjs/dist/system.min.js`,
+    `${node_modules}systemjs/dist/extras/amd.min.js`,
+    `${node_modules}systemjs/dist/extras/named-exports.min.js`,
+    `${node_modules}core-js-bundle/minified.js`,
+    `${node_modules}zone.js/dist/zone.min.js`,
+    './src/portal.js'
+  ])),
   output: {
-    publicPath: '',
-    filename: '[name].js',
-    chunkFilename: '[name].[chunkhash:8].js',
-    path: path.resolve(__dirname, '../../release')
+    publicPath: '/',
+    filename: `index.v${VERSION}.js`,
+    path: path.resolve(__dirname, '../../build')
+  },
+  performance: {
+    hints: false
   },
   module: {
     rules: [
@@ -46,44 +47,25 @@ module.exports = {
     modules: [__dirname, 'node_modules']
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.optimize\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorPluginOptions: {
-        preset: [
-          'default',
-          {
-            discardComments: {
-              removeAll: true
-            }
-          }
-        ]
-      },
-      canPrint: true
-    }),
     new webpack.DefinePlugin({
-      __DEV__: true,
-      STATIC_URL: JSON.stringify(
-        'https://e-static.oss-cn-shanghai.aliyuncs.com'
-      ),
-      _URL_: JSON.stringify('http://api.qiyizhuan.com.cn/backend'), //api.mizhuanba.com
-      TOKEN_KEY: JSON.stringify('token_key')
+      VERSION: JSON.stringify(VERSION)
     }),
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('../../dll/vendor-manifest.json')
-    }),
+    // new webpack.DllReferencePlugin({
+    //   context: __dirname,
+    //   manifest: require('../../dll/vendor-manifest.json')
+    // }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/index.ejs'),
+      template: path.resolve(__dirname, './src/index.html'),
+      favicon: path.resolve(__dirname, './src/favicon.ico'),
+      production: true
     }),
     // 该插件将把给定的 JS 或 CSS 文件添加到 webpack 配置的文件中，并将其放入资源列表 html webpack插件注入到生成的 html 中。
-    new AddAssetHtmlPlugin([
-      {
-        // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持 globby 字符串
-        filepath: require.resolve('../../dll/vendor.dll.js')
-      }
-    ]),
+    // new AddAssetHtmlPlugin([
+    //   {
+    //     // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持 globby 字符串
+    //     filepath: require.resolve('../../dll/vendor.dll.js')
+    //   }
+    // ]),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/)
   ],
   externals: []

@@ -1,0 +1,73 @@
+<nz-table class="vital-table" #fixedTable [nzData]="chooseRow"
+  [nzScroll]="settings.xScroll ? { y: 'calc(100vh - 105px)', x: settings.xScroll + 'px' } : { y: 'calc(100vh - 105px)' }"
+  [nzShowPagination]="false" nzSize="small" id="inp-vital-entry">
+  <thead>
+    <tr class="vital-table-tr table-zebra-row">
+      <th *ngFor="let column of columns" [nzAlign]="column.align ? column.align : 'left'" [nzWidth]="column.width"
+        [nzLeft]="column.left">
+        {{column.sddName}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="vital-table-tr can-click-tr" *ngFor="let data of chooseRow; let i=index" (click)="startEdit(i)"
+      [class.table-zebra-row]="i % 2 === 1">
+      <td *ngFor="let column of columns" [nzAlign]="column.align ? column.align : 'left'" [nzLeft]="column.left">
+        <!-- 默认显示字符串 -->
+        <ng-container
+          *ngIf="(!editCache[i].edit && column.type !== 'checkbox') || column.type === 'text'; else InputTpl">
+          <!-- 可编辑的td，带hover效果 -->
+          <div class="editable-cell-value-wrap" *ngIf="column.type !== 'text'; else textTpl">
+            <ng-container *ngIf="column.type !== 'select' || !data[column.id];else selectText">
+              <ng-container *ngIf="column.type !== 'dateRange' || !data[column.id];else dateRangeText">
+                {{ data[column.id] }}
+              </ng-container>
+              <!-- 对dateRange值格式化 -->
+              <ng-template #dateRangeText>
+                {{ data[column.id][0] }} ~ {{ data[column.id][1] }}
+              </ng-template>
+            </ng-container>
+            <!-- 对select值格式化，避免显示code,而是显示name -->
+            <ng-template #selectText>
+              <table-select [column]="column" [i]="i" [data]="chooseRow" [isText]="true">
+              </table-select>
+            </ng-template>
+          </div>
+          <!-- 纯text -->
+          <ng-template #textTpl>
+            <span *ngIf="column.id !== 'reason'; else hasColorTpl">
+              {{ data[column.id] }}
+            </span>
+            <!-- reason添加颜色 -->
+            <ng-template #hasColorTpl>
+              <span class="text-no-color" [class.text-color]="data[column.id] !== '*'">
+                {{ data[column.id] }}
+              </span>
+            </ng-template>
+          </ng-template>
+        </ng-container>
+        <!-- 编辑状态 -->
+        <ng-template #InputTpl>
+          <!-- input -->
+          <table-input *ngIf="column.type === 'input'" [column]=" column" [i]="i" [data]="chooseRow"
+            [num]="settings.settingCode[column.id] ? settings.settingCode[column.id].num : null"
+            [parameters]=" option.parameters" (startEdit)="startEdit($event)">
+          </table-input>
+          <!-- checkbox -->
+          <table-checkbox *ngIf="column.type === 'checkbox'" [id]="column.id" [i]="i" [data]="chooseRow"
+            [settings]="settings" [childrenId]="column.childrenId">
+          </table-checkbox>
+          <!-- select -->
+          <table-select *ngIf="column.type === 'select'" [column]="column" [i]="i" [data]="chooseRow" [isText]="false">
+          </table-select>
+          <!-- button -->
+          <batch-vital-signs-table-btn *ngIf="column.type === 'button'" [id]="column.id" [i]="i" [data]="chooseRow"
+            [text]="column.placeholder" [icon]="column.icon" [headerDate]="headerDate">
+          </batch-vital-signs-table-btn>
+          <!-- date-range -->
+          <batch-table-date-range *ngIf="column.type === 'dateRange'" [id]="column.id" [i]="i" [data]="chooseRow">
+          </batch-table-date-range>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

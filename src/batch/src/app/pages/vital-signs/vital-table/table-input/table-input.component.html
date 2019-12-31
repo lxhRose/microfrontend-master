@@ -1,0 +1,40 @@
+<ng-container *ngIf="column.id !== 'bp'; else inputBox">
+  <div class="normal-{{ status }}">
+    <nz-input-group class="table-input" [nzSuffix]="otherSelectModal">
+      <input #inputElement class="normal-input inp-vital-input-container" [ngModel]="data[i][column.id]"
+        (ngModelChange)="onChange($event, column.id)" nz-input (blur)="onBlur(column.id, true)" (focus)="editTr(i)"
+        [disabled]="data[i].disabled || column.id === 'faeces1' && data[i].faecesType !== 'enemas'" />
+    </nz-input-group>
+  </div>
+</ng-container>
+
+<ng-template #inputBox>
+  <div class="SBP-{{ SBPStatus }} DBP-{{ DBPStatus }}">
+    <nz-input-group class="bp-input-box" nzCompact>
+      <input class="SBP-input inp-vital-input-container" #inputElementSBP [ngModel]="data[i].SBP" nz-input
+        (ngModelChange)="onChange($event, 'SBP')" (blur)="onBlur('SBP', true)" (focus)="editTr(i)"
+        [disabled]="data[i].disabled" />
+      <input class="center-input" type="text" disabled nz-input placeholder="/" />
+      <nz-input-group class="DBP-input-group" [nzSuffix]="otherSelectModal">
+        <input class="DBP-input inp-vital-input-container" #inputElementDBP [ngModel]="data[i].DBP" nz-input
+          (ngModelChange)="onChange($event, 'DBP')" (blur)="onBlur('DBP', true)" (focus)="editTr(i)"
+          [disabled]="data[i].disabled" />
+      </nz-input-group>
+    </nz-input-group>
+  </div>
+</ng-template>
+
+<ng-template #otherSelectModal>
+  <ng-container
+    *ngIf="status === 0 || status === 1 || status === 3 || SBPStatus === 0 || SBPStatus === 1 || SBPStatus === 3 || DBPStatus === 0 || DBPStatus === 1 || DBPStatus === 3; else tooltipModal">
+    <batch-measures-modal [data]="measuresData" [isVisible]="measuresVisible" [selectKeys]="measuresSelectKeys"
+      (onOk)="measuresHandleOk($event)" (onCancel)="measuresHandleCancel()" (iconClick)="measuresIconClick()">
+    </batch-measures-modal>&nbsp;
+    <batch-other-select [index]="i" [id]="column.id" [data]="data" *ngIf="!column.noOther">
+    </batch-other-select>
+  </ng-container>
+  <ng-template #tooltipModal>
+    <batch-other-select [index]="i" [id]="column.id" [data]="data" *ngIf="!column.noOther">
+    </batch-other-select>
+  </ng-template>
+</ng-template>

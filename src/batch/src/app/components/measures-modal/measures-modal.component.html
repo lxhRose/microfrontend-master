@@ -1,0 +1,26 @@
+<span nz-tooltip nzTooltipTitle="体征护理措施" (click)="showModal()">
+  <span class="icon-fulicuos">
+    <span class="path1"></span>
+    <span class="path2"></span>
+  </span>
+</span>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="title ? title : '护理措施'" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()" class="measures-modal" nzWidth="680px" nzClosable="false" nzMask="false">
+  <nz-table #rowSelectionTable [nzShowPagination]="false" [nzData]="data" [nzScroll]="{ y: '277px' }" nzSize="small">
+    <thead>
+      <tr class="vital-table-tr table-zebra-row">
+        <th nzShowCheckbox [nzIndeterminate]="isIndeterminate" (nzCheckedChange)="checkAll($event)"
+          [(nzChecked)]="isCheckAll" nzWidth="5%"></th>
+        <th>护理措施</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="vital-table-tr can-click-tr" *ngFor="let item of data; let i=index" (click)="rowClick(item.id)"
+        [class.table-zebra-row]="i % 2 === 1">
+        <td nzShowCheckbox [(nzChecked)]="selectedRowKeys[item.id]" (nzCheckedChange)="refreshStatus()">
+        </td>
+        <td>{{ item.name }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

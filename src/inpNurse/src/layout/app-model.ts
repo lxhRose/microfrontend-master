@@ -2,25 +2,18 @@ import { Model } from 'dva';
 import server from './app-server';
 
 const initialState = {
-  collapsed: false,
-  userInfo: {
-    userCode: "",
-    userName: "",
-    roleDesc: "",
-    role: -1
-  },
-  role: -1 // 0：超级管理员，1：医生，2：财务
+  loading: false
 };
 
 export default <Model>{
   namespace: "App",
   state: initialState,
   reducers: {
-    // 菜单伸缩
-    changeCollapsed(state, { payload }) {
+    // loading
+    toggleLoading(state, { payload }) {
       return {
         ...state,
-        collapsed: payload,
+        loading: payload,
       };
     },
     appendUserInfo(state, { payload }) {
@@ -30,12 +23,6 @@ export default <Model>{
         role: payload.body.role
       }
     },
-    changeRole(state, { payload }) {
-      return {
-        ...state,
-        role: payload.role
-      }
-    }
   },
   effects: {
     // 获取登录用户信息

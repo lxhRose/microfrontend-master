@@ -1,0 +1,4 @@
+<button class="button-gradient" nz-button nzType="primary" (click)="btnClick()" [style.color]="data[i][id + 'Color']">
+  <i [class]="icon" *ngIf="icon"></i>
+  {{ data[i][id] ? data[i][id] : text }}
+</button>

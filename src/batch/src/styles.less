@@ -1,0 +1,214 @@
+// @import "./../../common/style/style.less";
+@import "~ng-zorro-antd/style/entry.less"; /* 引入基本样式 */
+/* 引入组件样式 */
+@import "~ng-zorro-antd/button/style/entry.less";
+@import "~ng-zorro-antd/date-picker/style/entry.less";
+@import "~ng-zorro-antd/checkbox/style/entry.less";
+@import "~ng-zorro-antd/select/style/entry.less";
+@import "~ng-zorro-antd/table/style/entry.less";
+@import "~ng-zorro-antd/icon/style/entry.less";
+@import "~ng-zorro-antd/modal/style/entry.less";
+@import "~ng-zorro-antd/radio/style/entry.less";
+@import "~ng-zorro-antd/grid/style/entry.less";
+@import "~ng-zorro-antd/spin/style/entry.less";
+@import "~ng-zorro-antd/tooltip/style/entry.less";
+@import "~ng-zorro-antd/notification/style/entry.less";
+@import "~ng-zorro-antd/message/style/entry.less";
+
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-tree-checkbox-checked .ant-checkbox-inner,
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+  background-color: #36BE1F!important;
+  border-color    : #36BE1F!important;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus+.ant-checkbox-inner,
+.ant-tree-checkbox-wrapper:hover .ant-tree-checkbox-inner,
+.ant-tree-checkbox:hover .ant-tree-checkbox-inner,
+.ant-tree-checkbox-input:focus+.ant-tree-checkbox-inner {
+  border-color: #36BE1F!important;
+}
+
+.ant-checkbox-indeterminate .ant-checkbox-inner::after,
+.ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner::after {
+  background-color: #36BE1F!important;
+}
+
+.ant-radio-inner::after {
+  background-color: #36BE1F!important;
+}
+
+.ant-radio-disabled .ant-radio-inner::after {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus+.ant-radio-inner,
+.ant-radio-checked .ant-radio-inner {
+  border-color: #36BE1F!important;
+}
+
+.vital-table-tr {
+  >th,
+  >td {
+     padding: 4px 8px!important;
+  }
+}
+
+.can-click-tr {
+  cursor: pointer;
+}
+
+.table-zebra-row {
+  background-color: #FDFDFDFF;
+}
+
+.ant-modal {
+  top: calc(~"(100vh - 300px)/2");
+}
+
+// 保证固定表格列盖住非固定列
+.ant-table-th-left-sticky,
+.ant-table-th-right-sticky,
+.ant-table-td-right-sticky,
+.ant-table-td-left-sticky {
+  z-index: 3;
+}
+
+.system-modal {
+  .ant-modal {
+    padding         : 10px;
+    background-color: rgba(0, 10, 17, .8);
+    border-radius   : 4px;
+    box-shadow      : 0 0 16px 0;
+  }
+
+  .ant-modal-content {
+    background-color: transparent;
+  }
+
+  .ant-modal-header {
+    background-color   : transparent;
+    border-bottom      : none;
+    // padding         : 3px 0 19px;
+    padding            : 0 0 10px;
+  }
+
+  .ant-modal-body {
+    background-color: #fff;
+    border-radius   : 4px 4px 0 0;
+    padding         : 12px;
+  }
+
+  .ant-modal-footer {
+    background-color: #fff;
+  }
+
+  .ant-modal-title {
+    color     : #fff;
+    font-size : 20px;
+    text-align: center;
+  }
+
+  .ant-modal-close-icon {
+    font-size: 22px;
+    color    : #fff;
+  }
+
+  .ant-modal-close {
+    top: -10px;
+  }
+}
+
+.measures-modal {
+  .ant-modal{
+    padding:0;
+    background-color:#fff;
+    box-shadow: 0px 0px 12px 0px rgba(0,21,35,0.25);
+  }
+  .ant-table-placeholder{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .ant-modal-content{
+    height: 100%;
+  }
+  .ant-modal-header{
+    border: 0;
+    padding:0;
+  }
+  .ant-modal-title{
+    text-align: left;
+    padding: 10px 12px;
+    color: #23262AFF;
+    font-size: 14px;
+  }
+  .ant-table{
+    font-size: 13px;
+    color:#3F444AFF;
+  }
+  .ant-modal-body{
+    padding: 0 10px;
+    height: 325px;
+  }
+  .ant-table-body{
+    height:277px;
+  }
+  .ant-table-column-title{
+    color: #1C2024FF;
+  }
+}
+
+.other-select-modal {
+  .ant-modal-header {
+    padding    : 10px;
+    font-weight: 500;
+    color      : #23262A;
+
+    .ant-modal-title {
+      font-size: 14px;
+    }
+  }
+
+  .ant-modal-close-x {
+    width      : 42px;
+    height     : 42px;
+    line-height: 42px;
+  }
+
+  .ant-modal-footer {
+    padding: 10px;
+  }
+
+  .ant-modal-footer button+button {
+    margin-left: 10px;
+  }
+
+  .ant-modal-body {
+    padding: 20px 17px;
+  }
+
+  .inp-vitalEntry-other_content {
+    display    : flex;
+    align-items: center;
+  }
+}
+
+.other-select-modal,
+.measures-modal {
+  .ant-btn{
+    width:80px;
+    height:30px;
+    line-height: 30px;
+  }
+  .ant-btn:first-child{
+    background-color: #A7AAB0FF;
+    border: none;
+    color: #fff;
+  }
+}

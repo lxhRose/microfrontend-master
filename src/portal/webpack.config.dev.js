@@ -10,18 +10,30 @@ config.plugins.push(new webpack.NamedModulesPlugin());
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.devServer = {
   port: PORT,
-  contentBase: '../../release',
+  contentBase: '../../build',
   historyApiFallback: true,
   watchOptions: { aggregateTimeout: 300, poll: 1000 },
   headers: {
     'Access-Control-Allow-Origin': '*'
   },
-  // proxy: {
-  //   "/common/": {
-  //     target: "http://localhost:" + PORT,
-  //     pathRewrite: { "^/common": "" }
-  //   }
-  // }
+  proxy: [
+    creatProxy('batch'),
+    creatProxy('inpNurse'),
+    creatProxy('sysConfig')
+  ]
+}
+
+function creatProxy(name) {
+  return {
+    context: `/${name}/api`,
+    pathRewrite: {
+      [`^/${name}/api`]: "/topro"
+    },
+    target: "http://120.27.0.230:8088",
+    secure: false,
+    changeOrigin: true,
+    logLevel: "debug"
+  }
 }
 
 module.exports = config;

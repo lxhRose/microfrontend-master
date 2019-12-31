@@ -5,13 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
     "independent": "webpack-dev-server --config ./webpack.config.dev.independent.js",
-    "build": "webpack --config ./webpack.config.js -p --progress"
+    "build": "webpack --config ./webpack.config.prod.js -p --progress"
   },
   "keywords": [],
   "author": "lvxinghai",
-  "license": "MIT",
-  "dependencies": {
-    "antd": "^3.25.3",
-    "dva": "^2.4.1"
-  }
+  "license": "MIT"
 }

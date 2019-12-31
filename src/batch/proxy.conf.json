@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "http://120.27.0.230:8088/",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": "/topro"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

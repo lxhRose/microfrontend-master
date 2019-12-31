@@ -1,0 +1,5 @@
+<nz-range-picker class="range-picker" [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"
+  [disabled]="data[i].disabled">
+</nz-range-picker>
+<batch-other-select [index]="i" [id]="id" [data]="data">
+</batch-other-select>

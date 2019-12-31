@@ -1,0 +1,43 @@
+.table-input {
+  width: 100%;
+}
+
+.bp-input-box {
+  .SBP-input {
+    width: calc(~"50% - 10px");
+    text-align: left;
+  }
+  .center-input {
+    border-left: 0;
+    border-right: 0;
+    padding: 0;
+    width: 20px;
+    pointer-events: none;
+    background-color: #fff;
+  }
+  .DBP-input-group {
+    width: calc(~"50% - 10px");
+
+    .DBP-input {
+      border-left: 0px;
+    }
+  }
+}
+
+// 状态控制的样式
+.normal-0 .normal-input .ant-input,
+.normal-0 .normal-input,
+.SBP-0 .SBP-input .ant-input,
+.SBP-0 .SBP-input,
+.DBP-0 .DBP-input .ant-input,
+.DBP-0 .DBP-input {
+    color: #3B7CFF;
+}
+.normal-1 .normal-input .ant-input,
+.normal-1 .normal-input,
+.SBP-1 .SBP-input .ant-input,
+.SBP-1 .SBP-input,
+.DBP-1 .DBP-input .ant-input,
+.DBP-1 .DBP-input {
+    color: #f00;
+}

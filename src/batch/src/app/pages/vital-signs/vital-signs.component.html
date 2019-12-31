@@ -1,0 +1,7 @@
+<div class="batch-entry-newborn">
+  <vital-header [option]="headerOption" [ivIds]="ivIds" (chooseModalData)="chooseModalData($event)"
+    (getData)="getData($event)" [chooseRow]="chooseRow">
+  </vital-header>
+  <vital-table [option]="tableOption" [chooseRow]="chooseRow" [headerDate]="headerOption.headerDate">
+  </vital-table>
+</div>

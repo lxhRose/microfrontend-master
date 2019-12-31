@@ -1,0 +1,30 @@
+<span nz-tooltip nzTooltipTitle="其他选项">
+  <span class="icon-69" (click)="showModal()">
+    <span class="path1"></span>
+    <span class="path2"></span>
+  </span>
+</span>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="其他选项" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  class="other-select-modal" nzWidth="400px" nzClosable="false" nzMask="false">
+  <div class="inp-vitalEntry-other_content" *ngIf="id && settings.settingCode[id]">
+    <nz-select class="other_content-select item" *ngIf="!settings.settingCode[id].noHasReason" nzPlaceHolder="未测原因"
+      [(ngModel)]="reasonSelect">
+      <nz-option *ngFor="let option of unableCauseList" [nzValue]="option.sddCode" [nzLabel]="option.sddName">
+      </nz-option>
+    </nz-select>
+    <nz-select class="other_content-select item" *ngIf="settings.settingCode[id].type" nzPlaceHolder="类型"
+      [(ngModel)]="typeSelect">
+      <nz-option *ngFor="let option of ColumnData[settings.settingCode[id].type]" [nzValue]="option.sddCode"
+        [nzLabel]="option.sddName">
+      </nz-option>
+    </nz-select>
+    <span *ngIf="!settings.settingCode[id].noTpr">
+      <label class="oItem" nz-checkbox [(ngModel)]="tprCheck">T</label>
+      <nz-select [(ngModel)]="timePointSelect" class="item" nzPlaceHolder="时间">
+        <nz-option *ngFor="let item of select.timeObj" [nzValue]="item.sddName" [nzLabel]="item.sddCode">
+        </nz-option>
+      </nz-select>
+    </span>
+    <label class="oItem" *ngIf="!settings.settingCode[id].noHuji" nz-checkbox [(ngModel)]="hujiCheck">护</label>
+  </div>
+</nz-modal>

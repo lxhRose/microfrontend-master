@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
-    "build": "webpack --config ./webpack.config.js -p --progress"
+    "build": "webpack --config ./webpack.config.prod.js -p --progress"
   },
   "author": "lvxinghai",
   "license": "MIT",

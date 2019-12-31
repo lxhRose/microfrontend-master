@@ -1,0 +1,56 @@
+<div class="BatchHeader">
+  <div class="left-box">
+    <div class="top-date">
+      <span>测量日期</span>
+      <nz-date-picker *ngIf="_option.settings.isTimepoint; else noTimepoint" [(ngModel)]="_option.headerDate"
+        class="datePicker" nzFormat="yyyy/MM/dd" (ngModelChange)="dateHandleChange($event)">
+      </nz-date-picker>
+      <ng-template #noTimepoint>
+        <nz-date-picker nzShowTime nzFormat="yyyy/MM/dd HH:mm" nzPlaceHolder="Select Time"
+          [(ngModel)]="_option.headerDate" (ngModelChange)="dateHandleChange($event)">
+        </nz-date-picker>
+      </ng-template>
+    </div>
+    <batch-choose-modal [reviewTimePoint]="select.headerTime" [reviewTime]="_option.headerDate"
+      (selcetedData)="_chooseModalData($event)" [chooseRow]="this.chooseRow">
+    </batch-choose-modal>
+    <label nz-checkbox *ngIf="!_option.settings.allNoHuji" [(ngModel)]="isTpr.checkAll"
+      (ngModelChange)="_onCheckAllChange('isTpr')" [nzIndeterminate]="isTpr.indeterminate">T</label>
+    <nz-select [(ngModel)]="select.headerTime" class="header-select has-margin-right" nzPlaceHolder="时间"
+      (ngModelChange)="timeHandleChange($event)">
+      <nz-option *ngFor="let item of select.timeObj" [nzValue]="item.sddName" [nzLabel]="item.sddCode">
+      </nz-option>
+    </nz-select>
+    <label nz-checkbox *ngIf="!_option.settings.allNoHuji" [(ngModel)]="writeCareSheet.checkAll"
+      (ngModelChange)="_onCheckAllChange('writeCareSheet')" [nzIndeterminate]="writeCareSheet.indeterminate">护</label>
+  </div>
+  <div class="right-box">
+    <button nz-button nzType="primary" (click)="save()">保存</button>
+    <div class="orange-color inp-vitalEntry-choose_tipText" (mouseover)="showTip(false)" (mouseout)="showTip(true)">
+      <div class="inp-vitalEntry-choose_tipIcon">
+        <i class="icon-2"></i>
+        &nbsp;说明
+      </div>
+      <div class="inp-vitalEntry-choose_tip" [class.hidden]="hiddenChooseTip">
+        <div class="orange-color title">体温单筛选规则说明：</div>
+        <nz-table [nzShowPagination]="false" [nzData]="_option.settings.tipDataSource" nzSize="small"
+          [nzBordered]="true">
+          <thead>
+            <tr class="set-font">
+              <th nzWidth="70px">符号</th>
+              <th nzWidth="86px">含义</th>
+              <th nzWidth="369px">说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of _option.settings.tipDataSource" class="set-font">
+              <td><span>{{ data.sign }}</span></td>
+              <td>{{ data.message }}</td>
+              <td>{{ data.info }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</div>

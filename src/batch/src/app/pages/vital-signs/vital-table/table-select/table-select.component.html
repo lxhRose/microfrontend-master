@@ -1,0 +1,11 @@
+<ng-container *ngIf="!isText; else selectShowText">
+  <nz-select class="table-select" [class.noOther]="column.noOther" [(ngModel)]="data[i][column.id]"
+    [nzPlaceHolder]="column.sddName" [disabled]="data[i].disabled">
+    <nz-option *ngFor="let option of column.data" [nzValue]="option.sddCode" [nzLabel]="option.sddName"
+      (ngModelChange)="onChange($event, column.id)">
+    </nz-option>
+  </nz-select>
+  <batch-other-select [index]="i" [id]="column.id" [data]="data" *ngIf="!column.noOther">
+  </batch-other-select>
+</ng-container>
+<ng-template #selectShowText>{{ showText }}</ng-template>

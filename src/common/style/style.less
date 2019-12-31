@@ -1,0 +1,39 @@
+@import "./../fonts/style.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "SourceHanSansCN-Bold";
+  color: #333;
+  font-size: 14px;
+
+  //滚动条
+  ::-webkit-scrollbar-track-piece {
+    //滚动条凹槽的颜色，还可以设置边框属性
+    // background-color:#f8f8f8;
+    background-color   : transparent;
+  }
+
+  ::-webkit-scrollbar {
+    //滚动条的宽度
+    width : 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    //滚动条的设置
+    background-color: #dddddd;
+    background-clip : padding-box;
+    min-height      : 28px;
+    border-radius   : 3px;
+  }
+
+  ul {
+      list-style: none;
+  }
+}

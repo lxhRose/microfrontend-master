@@ -1,25 +1,29 @@
 {
   "name": "toproemrmicrofrontend",
   "private": true,
+  "version": "1.0.6",
   "workspaces": [
     "src/*"
   ],
   "scripts": {
-    "i-all": "npm run dll && npm run install:portal && npm run install:root && npm run install:angular && npm run install:inpNurse",
-    "install:portal": "cd ./src/portal/ && npm i",
-    "install:root": "cd ./src/root/ && npm i",
-    "install:angular": "cd ./src/angular/ && npm i",
-    "install:inpNurse": "cd ./src/inpNurse/ && npm i",
-    "start": "concurrently --kill-others --kill-others-on-fail -p name --names \"portal,root,angular,inpNurse\" \"npm run start:portal\" \"npm run start:root\" \"npm run start:angular\" \"npm run start:inpNurse\"",
+    "i-all": "npm i && npm run i:portal && npm run i:base && npm run i:batch && npm run i:inpNurse && npm run i:sysConfig",
+    "i:portal": "cd ./src/portal/ && npm i",
+    "i:base": "cd ./src/base/ && npm i",
+    "i:batch": "cd ./src/batch/ && npm i",
+    "i:inpNurse": "cd ./src/inpNurse/ && npm i",
+    "i:sysConfig": "cd ./src/sysConfig/ && npm i",
+    "start": "concurrently --kill-others --kill-others-on-fail -p name --names \"portal,base,batch,inpNurse,sysConfig\" \"npm run start:portal\" \"npm run start:base\" \"npm run start:batch\" \"npm run start:inpNurse\" \"npm run start:sysConfig\"",
     "start:portal": "cd ./src/portal/ && webpack-dev-server --config ./webpack.config.dev.js",
-    "start:root": "cd ./src/root/ && webpack-dev-server --config ./webpack.config.dev.js",
-    "start:angular": "cd ./src/angular/ && ng serve --disable-host-check --port 9002 --deploy-url http://localhost:9002/ --live-reload false",
+    "start:base": "cd ./src/base/ && webpack-dev-server --config ./webpack.config.dev.js",
+    "start:batch": "cd ./src/batch/ && ng serve --disable-host-check --port 9002 --deploy-url http://localhost:9002/ --live-reload false",
     "start:inpNurse": "cd ./src/inpNurse/ && webpack-dev-server --config ./webpack.config.dev.js",
-    "build": "npm run build:portal && npm run build:root && npm run build:angular && npm run build:inpNurse",
-    "build:portal": "cd ./src/portal/ && webpack --config ./webpack.config.js -p --progress",
-    "build:root": "cd ./src/root/ && webpack --config ./webpack.config.js -p --progress",
-    "build:angular": "cd ./src/angular/ && ng build --prod --deploy-url ../../release/angular --output-hashing none",
-    "build:inpNurse": "cd ./src/inpNurse/ && webpack --config ./webpack.config.js -p --progress",
+    "start:sysConfig": "cd ./src/sysConfig/ && webpack-dev-server --config ./webpack.config.dev.js",
+    "build": "npm run build:portal && npm run build:base && npm run build:batch && npm run build:inpNurse && npm run build:sysConfig",
+    "build:portal": "cd ./src/portal/ && webpack --config ./webpack.config.prod.js -p --progress",
+    "build:base": "cd ./src/base/ && webpack --config ./webpack.config.prod.js -p --progress",
+    "build:batch": "cd ./src/batch/ && ng build --prod --deploy-url ../../build/batch --output-hashing none",
+    "build:inpNurse": "cd ./src/inpNurse/ && webpack --config ./webpack.config.prod.js -p --progress",
+    "build:sysConfig": "cd ./src/sysConfig/ && webpack --config ./webpack.config.prod.js -p --progress",
     "dll": "npx webpack --config webpack.dll.config.babel.js --progress --color"
   },
   "devDependencies": {
@@ -41,6 +45,8 @@
     "ali-oss": "^6.1.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^1.1.12",
     "core-js": "^3.3.5",
     "css-loader": "^3.2.0",
     "cssnano": "^4.1.10",
@@ -54,11 +60,11 @@
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
     "typescript": "^3.6.4",
-    "webpack": "^4.41.2",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.41.4",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0",
-    "clean-webpack-plugin": "^3.0.0",
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
@@ -69,6 +75,8 @@
     "single-spa": "^4.4.1",
     "single-spa-react": "^2.10.3",
     "systemjs": "4.1.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "antd": "^3.25.3",
+    "dva": "^2.4.1"
   }
 }

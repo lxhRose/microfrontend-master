@@ -19,10 +19,8 @@ config.plugins.push(new webpack.NamedModulesPlugin());
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.plugins.push(
   new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, './src/index.ejs'),
-    templateParameters: {
-      title: 'test'
-    }
+    template: path.resolve(__dirname, './src/index.html'),
+    favicon: path.resolve(__dirname, './src/favicon.ico')
   }),
 );
 // 该插件将把给定的 JS 或 CSS 文件添加到 webpack 配置的文件中，并将其放入资源列表 html webpack插件注入到生成的 html 中。
@@ -37,18 +35,18 @@ config.plugins.push(
 config.devServer = {
   port: PORT,
   host: '0.0.0.0',
-  contentBase: '../../release/' + APP_NAME,
+  contentBase: '../../build/' + APP_NAME,
   inline: true,
   historyApiFallback: true,
   headers: {
     'Access-Control-Allow-Origin': '*'
+  },
+  proxy: {
+    "/api/*": {
+      target: "http://192.168.41.216:7000",
+      changeOrigin: true
+    },
   }
-  // proxy: {
-  //   "/common/": {
-  //     target: "http://localhost:" + PORT,
-  //     pathRewrite: { "^/common": "" }
-  //   }
-  // }
 }
 
 module.exports = config;

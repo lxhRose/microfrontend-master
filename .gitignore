@@ -63,11 +63,12 @@ typings/
 # editor configs
 .idea
 
-# release folders
-release
+# build folders
+build
 
 # git
 git
 git.pub
 
 package-lock.json
+.vscode

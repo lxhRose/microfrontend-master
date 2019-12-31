@@ -12,18 +12,18 @@ config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.devServer = {
   port: PORT,
   host: '0.0.0.0',
-  contentBase: '../../release/' + APP_NAME,
+  contentBase: '../../build/' + APP_NAME,
   inline: true,
   historyApiFallback: true,
   headers: {
     'Access-Control-Allow-Origin': '*'
+  },
+  proxy: {
+    "/api/*": {
+      target: "http://192.168.41.216:7000",
+      changeOrigin: true
+    },
   }
-  // proxy: {
-  //   "/common/": {
-  //     target: "http://localhost:" + PORT,
-  //     pathRewrite: { "^/common": "" }
-  //   }
-  // }
 }
 
 module.exports = config;
