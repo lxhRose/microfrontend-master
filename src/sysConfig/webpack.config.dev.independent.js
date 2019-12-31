@@ -1,7 +1,6 @@
 const config = require('./webpack.config.dev.js');
 const webpack = require('webpack');
 const path = require('path');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PORT = 8004;
@@ -13,7 +12,8 @@ config.entry = {
   index: './src/index.ts'
 };
 config.output = {
-  filename: '[name].js'
+  filename: '[name].js',
+  publicPath: 'http://localhost:' + PORT + '/'
 };
 config.plugins.push(new webpack.NamedModulesPlugin());
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
@@ -22,15 +22,6 @@ config.plugins.push(
     template: path.resolve(__dirname, './src/index.html'),
     favicon: path.resolve(__dirname, './src/favicon.ico')
   }),
-);
-// 该插件将把给定的 JS 或 CSS 文件添加到 webpack 配置的文件中，并将其放入资源列表 html webpack插件注入到生成的 html 中。
-config.plugins.push(
-  new AddAssetHtmlPlugin([
-    {
-      // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持 globby 字符串
-      filepath: require.resolve('../../dll/vendor.dll.js')
-    }
-  ]),
 );
 config.devServer = {
   port: PORT,
@@ -42,9 +33,14 @@ config.devServer = {
     'Access-Control-Allow-Origin': '*'
   },
   proxy: {
-    "/api/*": {
-      target: "http://192.168.41.216:7000",
-      changeOrigin: true
+    [`/${APP_NAME}/api/*`]: {
+      target: "http://120.27.0.230:8088",
+      secure: false,
+      pathRewrite: {
+        [`^/${APP_NAME}/api`]: "/topro"
+      },
+      changeOrigin: true,
+      logLevel: "debug"
     },
   }
 }
