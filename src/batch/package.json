@@ -22,7 +22,7 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ng-zorro-antd": "^8.5.1",
     "rxjs": "~6.4.0",
     "single-spa-angular": "^3.0.1",
